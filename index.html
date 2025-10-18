@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer Support Ticketing System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo">CS</div>
+        <div>
+          <h1>SupportDesk — Tickets</h1>
+          <p class="muted">Lightweight frontend prototype • local only</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="tiny muted">Signed in as <strong>M. Monika</strong></div>
+        <button class="btn" id="btnExport">Export JSON</button>
+        <button class="btn" id="btnImport">Import</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="section">
+        <div class="search">
+          <input id="searchInput" placeholder="Search tickets by title, id, email..." aria-label="Search tickets" />
+          <button class="btn" id="btnClearSearch">Clear</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="muted">Filters</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <select id="filterStatus">
+            <option value="all">All statuses</option>
+            <option value="open">Open</option>
+            <option value="pending">Pending</option>
+            <option value="closed">Closed</option>
+          </select>
+
+          <select id="sortBy">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="priority">Priority</option>
+          </select>
+
+          <button class="btn primary" id="btnNewTicket">+ New Ticket</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="muted">Quick stats</div>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+          <div class="tiny">Total tickets: <strong id="statTotal">0</strong></div>
+          <div class="tiny">Open: <strong id="statOpen">0</strong></div>
+          <div class="tiny">Pending: <strong id="statPending">0</strong></div>
+          <div class="tiny">Closed: <strong id="statClosed">0</strong></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="muted">Sample data</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn" id="btnSeed">Load sample</button>
+          <button class="btn" id="btnReset">Reset</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="controls">
+        <div class="cards-row" style="flex:1">
+          <div class="stat">
+            <h3 id="statOpenBig">0</h3>
+            <p>Open tickets</p>
+          </div>
+          <div class="stat">
+            <h3 id="statPendingBig">0</h3>
+            <p>Pending tickets</p>
+          </div>
+          <div class="stat">
+            <h3 id="statClosedBig">0</h3>
+            <p>Closed tickets</p>
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <h2 style="margin:0 0 8px 0">Tickets</h2>
+        <div id="ticketsList" class="tickets" aria-live="polite"></div>
+      </section>
+
+      <section style="margin-top:12px">
+        <h2 style="margin:0 0 8px 0">Create ticket</h2>
+        <form id="ticketForm">
+          <div class="row">
+            <div style="flex:1">
+              <label for="name">Name</label>
+              <input type="text" id="name" required placeholder="Customer name" />
+            </div>
+            <div style="width:260px">
+              <label for="email">Email</label>
+              <input type="email" id="email" required placeholder="customer@example.com" />
+            </div>
+          </div>
+          <div style="margin-top:8px">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" required placeholder="Short summary of the issue" />
+          </div>
+          <div style="margin-top:8px">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div style="margin-top:8px">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Describe the problem in detail"></textarea>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+            <button class="btn primary" type="submit">Create ticket</button>
+            <div class="tiny muted">Tickets are stored in your browser (localStorage) — no server.</div>
+          </div>
+        </form>
+      </section>
+
+      <footer>Made with ❤ — Frontend prototype. Want a React or backend version?</footer>
+    </main>
+
+    <!-- Ticket detail modal -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-head">
+          <div>
+            <h3 id="modalTitle">Ticket #000</h3>
+            <div class="tiny muted" id="modalMeta">by someone • email • priority • status</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select id="modalStatus">
+              <option value="open">Open</option>
+              <option value="pending">Pending</option>
+              <option value="closed">Closed</option>
+            </select>
+            <button class="btn" id="btnCloseModal">Close</button>
+          </div>
+        </div>
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+        <div id="modalBody" style="white-space:pre-wrap;color:var(--muted)"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+          <button class="btn" id="btnDelete">Delete</button>
+          <button class="btn primary" id="btnSaveStatus">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" style="display:none" accept="application/json" />
+  <script src="app.js"></script>
+</body>
+</html>
