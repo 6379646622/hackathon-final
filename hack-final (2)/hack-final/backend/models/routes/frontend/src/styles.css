@@ -1,0 +1,105 @@
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --muted:#9aa6b2;
+  --accent:#5eead4;
+  --accent-2:#60a5fa;
+  --glass: rgba(255,255,255,0.03);
+  --success:#10b981;
+  --danger:#ef4444;
+  --radius:12px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color-scheme: dark;
+}
+html,body{height:100%;}
+body{
+  margin:0;
+  background: linear-gradient(180deg,#071024 0%, #071827 100%);
+  color:#e6eef6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+  padding:28px;
+  box-sizing: border-box;
+}
+
+.app{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:22px;
+}
+
+header.app-header{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:#052025
+}
+.brand h1{font-size:18px;margin:0}
+.brand p{margin:0;color:var(--muted);font-size:12px}
+
+/* Sidebar */
+.sidebar{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+.sidebar .section{margin-bottom:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#052025;border:none}
+.muted{color:var(--muted);font-size:13px}
+
+/* Search & filters */
+.search{display:flex;gap:8px}
+.search input{flex:1;padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:inherit}
+select, input, textarea{font:inherit}
+
+/* Tickets list */
+.tickets{display:grid;gap:12px}
+.ticket-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;gap:12px;align-items:flex-start}
+.ticket-meta{flex:1}
+.ticket-title{font-weight:600;margin:0 0 6px 0}
+.ticket-desc{margin:0;color:var(--muted);font-size:13px}
+.pill{padding:6px 8px;border-radius:999px;font-size:12px}
+.pill.open{background:rgba(16,185,129,0.12);color:var(--success);border:1px solid rgba(16,185,129,0.14)}
+.pill.pending{background:rgba(250,204,21,0.08);color:#f59e0b;border:1px solid rgba(250,204,21,0.12)}
+.pill.closed{background:rgba(239,68,68,0.06);color:var(--danger);border:1px solid rgba(239,68,68,0.1)}
+
+/* Main area */
+.main{display:flex;flex-direction:column;gap:12px}
+.controls{display:flex;gap:12px;align-items:center}
+.cards-row{display:flex;gap:12px}
+.stat{flex:1;padding:12px;border-radius:12px;background:var(--card);text-align:left}
+.stat h3{margin:0;font-size:22px}
+.stat p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+/* form */
+form .row{display:flex;gap:12px}
+label{font-size:13px;margin-bottom:6px;display:block}
+input[type=text], input[type=email], select, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.02);color:inherit}
+textarea{min-height:110px;resize:vertical}
+
+/* modal */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.7));padding:28px}
+.modal.show{display:flex}
+.modal-card{background:linear-gradient(180deg,#071427, #051026);width:min(900px,96%);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
+.modal-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+
+/* responsiveness */
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;}
+  header.app-header{flex-direction:column;align-items:flex-start}
+  .cards-row{flex-direction:column}
+}
+
+footer{grid-column:1/-1;text-align:center;margin-top:10px;color:var(--muted);font-size:13px}
+
+/* helpers */
+.tiny{font-size:12px;color:var(--muted)}
+.right{margin-left:auto}
+.icon{display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center}
